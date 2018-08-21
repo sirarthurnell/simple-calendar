@@ -1,3 +1,5 @@
-<p>
-  month-calendar works!
-</p>
+<table>
+  <tr *ngFor="let week of view">
+    <td class="day" [class.day--hole]="day?.isHole" [class.day--today]="day?.isToday" *ngFor="let day of week">{{ day?.day }}</td>
+  </tr>
+</table>

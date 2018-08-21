@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MonthGrid } from './models/month-grid';
+import { Month } from './models/month';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,5 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   ngOnInit(): void {
-    const monthGrid = new MonthGrid(new Date());
-    console.log(monthGrid.create(true));
   }
 }

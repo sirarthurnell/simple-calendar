@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Month } from '../../models/month';
 
 @Component({
   selector: 'app-month-calendar',
@@ -8,9 +9,14 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MonthCalendarComponent implements OnInit {
 
   /**
-   * Date to show, by default, the current date.
+   * Month to show.
    */
-  @Input() date = new Date();
+  @Input() month = new Month<any>();
+
+  /**
+   * View of the current month.
+   */
+  view = this.month.createView(true);
 
   constructor() { }
 

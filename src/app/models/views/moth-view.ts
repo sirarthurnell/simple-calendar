@@ -1,17 +1,20 @@
-import { DateMath } from '../core/date/date-math';
-import { DayOfWeek } from './day-of-week';
+import { DayOfWeek } from "../day-of-week";
+import { DateMath } from "../../core/date/date-math";
+import { MonthState } from "../month-state";
+import { DayInfo } from "../day-info";
 
 /**
- * Creates a data representation of a month.
+ * Creates a view of a month.
  */
-export class MonthGrid {
-  private readonly WEEKS_PER_MONTH = 5;
-  private readonly DAYS_PER_WEEK = 7;
+export class MonthView<T> {
+    private readonly WEEKS_PER_MONTH = 5;
+    private readonly DAYS_PER_WEEK = 7;
 
   /**
-   * Creates a new instance of MonthGrid.
+   * Creates a new instance of MonthView.
+   * @param date Date of the month.
    */
-  constructor(private date: Date) {}
+  constructor(private date: Date, private state: MonthState<T>) {}
 
   /**
    * Creates the grid corresponding to the month specified
@@ -22,11 +25,11 @@ export class MonthGrid {
    * @param weekStart Day of week to be considered the beginning
    * of the week.
    */
-  create(completeHoles = false, weekStart = DayOfWeek.Monday): Array<Array<number>> {
+  createView(completeHoles = false, weekStart = DayOfWeek.Monday): Array<Array<DayInfo<T>>> {
     const currentMonthGrid = this.createGrid(this.date, weekStart);
 
     if (completeHoles) {
-      const needsToBeFilledFromBeginning = currentMonthGrid[0][0] === 0;
+      const needsToBeFilledFromBeginning = !!!currentMonthGrid[0][0];
 
       if (needsToBeFilledFromBeginning) {
         const lastMonth = DateMath.substractMonths(this.date, 1);
@@ -36,15 +39,27 @@ export class MonthGrid {
         const daysToPickFromLastMonth = firstDayOfCurrentMonth.getDay() - weekStart.valueOf();
 
         for (let i = 0; i < daysToPickFromLastMonth; i++) {
-          currentMonthGrid[0][i] = lastDayOfLastMonth - (daysToPickFromLastMonth - (i + 1));
-        }
+          let currentDayOfMonth = lastDayOfLastMonth - (daysToPickFromLastMonth - (i + 1));
+
+          currentMonthGrid[0][i] = {
+            data: undefined,
+            isToday: false,
+            isHole: true,
+            day: currentDayOfMonth
+          };
+        }        
       }
 
       let fillingDays = 1;
       for (let week = 0; week < this.WEEKS_PER_MONTH; week++) {
         for (let dayOfWeek = 0; dayOfWeek < this.DAYS_PER_WEEK; dayOfWeek++) {
-          if (currentMonthGrid[week][dayOfWeek] === 0) {
-            currentMonthGrid[week][dayOfWeek] = fillingDays++;
+          if (!!!currentMonthGrid[week][dayOfWeek]) {
+            currentMonthGrid[week][dayOfWeek] = {
+              data: undefined,
+              isToday: false,
+              isHole: true,
+              day: fillingDays++
+            };
           }
         }
       }
@@ -60,7 +75,7 @@ export class MonthGrid {
    * @param weekStart Day of week which will be considered
    * the beginning of the week.
    */
-  private createGrid(date: Date, weekStart = DayOfWeek.Monday): Array<Array<number>> {
+  private createGrid(date: Date, weekStart = DayOfWeek.Monday): Array<Array<DayInfo<T>>> {
     const grid = this.initGrid();
     const firstDayOfWeek =
       DateMath.getFirstDayOfMonth(date).getDay() - weekStart.valueOf();
@@ -71,7 +86,13 @@ export class MonthGrid {
     for (let week = 0; week < this.WEEKS_PER_MONTH; week++) {
 
       for (; dayOfWeek < this.DAYS_PER_WEEK && currentDayOfMonth <= lastDay; dayOfWeek++) {
-        grid[week][dayOfWeek] = currentDayOfMonth;
+        grid[week][dayOfWeek] = {
+          data: this.state[currentDayOfMonth],
+          isToday: this.date.getDate() === currentDayOfMonth,
+          isHole: false,
+          day: currentDayOfMonth
+        };
+
         currentDayOfMonth++;
       }
 
@@ -87,8 +108,8 @@ export class MonthGrid {
    * the info about the "shape" of the
    * month.
    */
-  private initGrid(): Array<Array<number>> {
-    const defaultEmpty = 0;
+  private initGrid(): Array<Array<DayInfo<T>>> {
+    const defaultEmpty = undefined;
     const grid = [
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),

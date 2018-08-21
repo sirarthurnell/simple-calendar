@@ -1,0 +1,14 @@
+.day {
+    text-align: right;
+    padding: 5px;
+    vertical-align: middle;
+    border: 1px solid black;
+
+    &--hole {
+        color: lightgray;
+    }
+
+    &--today {
+        background: pink;
+    }
+}
