@@ -29,6 +29,28 @@ export class DateMath {
     }
 
     /**
+     * Adds a number of months to the specified date.
+     * @param date Date that will be increased.
+     * @param months Months to add.
+     */
+    static addMonths(date: Date, months: number): Date {
+      const monthsAdded = new Date(date.valueOf());
+      monthsAdded.setMonth(date.getMonth() + months);
+      return monthsAdded;
+    }
+
+    /**
+     * Substracts a number of months from the specified date.
+     * @param date Date that will be decreased.
+     * @param months Months to substract.
+     */
+    static substractMonths(date: Date, months: number): Date {
+      const monthsSubstracted = new Date(date.valueOf());
+      monthsSubstracted.setMonth(date.getMonth() - months);
+      return monthsSubstracted;
+    }
+
+    /**
      * Gets the date corresponding to the first day
      * of the month of the specified date.
      * @param date Date.

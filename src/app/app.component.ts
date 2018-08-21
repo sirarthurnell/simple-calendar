@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     const monthGrid = new MonthGrid(new Date());
-    monthGrid.createGrid();
+    console.log(monthGrid.create(true));
   }
 }
