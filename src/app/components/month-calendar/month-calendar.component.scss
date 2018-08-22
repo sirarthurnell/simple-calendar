@@ -1,8 +1,12 @@
+$month-font-size: 2rem;
+$day-padding: 5px;
+$day-width: 14.285714%; // 100% / 7 days
+
 .month {
   display: flex;
   flex-flow: column;
-  font-size: 5vw;
-  height: auto;
+  flex: 1;
+  font-size: $month-font-size;
 }
 
 .week {
@@ -11,9 +15,10 @@
 }
 
 .day {
-    flex: 1;
     text-align: right;
-    padding: 5px;
+    padding: $day-padding;
+    padding-bottom: calc(#{$day-width} - #{$month-font-size} - #{$day-padding});
+    width: $day-width;
     border: 1px solid black;
     overflow: hidden;
 
