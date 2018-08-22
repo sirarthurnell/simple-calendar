@@ -1,5 +1,12 @@
-<table>
-  <tr *ngFor="let week of view">
-    <td class="day" [class.day--hole]="day?.isHole" [class.day--today]="day?.isToday" *ngFor="let day of week">{{ day?.day }}</td>
-  </tr>
-</table>
+<div class="simple-calendar">
+  <div class="month">
+    <div class="week" *ngFor="let week of view">
+      <div
+        (click)="onDayClicked(day)"
+        class="day"
+        [class.day--hole]="day?.isHole"
+        [class.day--today]="day?.isToday"
+        *ngFor="let day of week">{{ day?.day }}</div>
+    </div>
+  </div>
+</div>

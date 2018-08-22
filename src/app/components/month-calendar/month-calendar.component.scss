@@ -1,8 +1,21 @@
+.month {
+  display: flex;
+  flex-flow: column;
+  font-size: 5vw;
+  height: auto;
+}
+
+.week {
+  display: flex;
+  flex: 1;
+}
+
 .day {
+    flex: 1;
     text-align: right;
     padding: 5px;
-    vertical-align: middle;
     border: 1px solid black;
+    overflow: hidden;
 
     &--hole {
         color: lightgray;

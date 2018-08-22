@@ -9,6 +9,12 @@ import { Month } from './models/month';
 export class AppComponent implements OnInit {
   title = 'app';
 
+  date = new Date();
+
   ngOnInit(): void {
+  }
+
+  createNewMonth(): void {
+    this.date = new Date(2014, 1, 1);
   }
 }

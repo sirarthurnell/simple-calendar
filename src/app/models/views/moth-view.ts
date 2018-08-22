@@ -1,12 +1,11 @@
-import { DayOfWeek } from "../day-of-week";
-import { DateMath } from "../../core/date/date-math";
-import { MonthState } from "../month-state";
-import { DayInfo } from "../day-info";
+import { DayOfWeek } from '../day-of-week';
+import { DateMath } from '../../core/date/date-math';
+import { DayInfo } from '../day-info';
 
 /**
  * Creates a view of a month.
  */
-export class MonthView<T> {
+export class MonthView {
     private readonly WEEKS_PER_MONTH = 5;
     private readonly DAYS_PER_WEEK = 7;
 
@@ -14,7 +13,7 @@ export class MonthView<T> {
    * Creates a new instance of MonthView.
    * @param date Date of the month.
    */
-  constructor(private date: Date, private state: MonthState<T>) {}
+  constructor(private date: Date) {}
 
   /**
    * Creates the grid corresponding to the month specified
@@ -25,7 +24,7 @@ export class MonthView<T> {
    * @param weekStart Day of week to be considered the beginning
    * of the week.
    */
-  createView(completeHoles = false, weekStart = DayOfWeek.Monday): Array<Array<DayInfo<T>>> {
+  createView(completeHoles = false, weekStart = DayOfWeek.Monday): Array<Array<DayInfo>> {
     const currentMonthGrid = this.createGrid(this.date, weekStart);
 
     if (completeHoles) {
@@ -39,15 +38,14 @@ export class MonthView<T> {
         const daysToPickFromLastMonth = firstDayOfCurrentMonth.getDay() - weekStart.valueOf();
 
         for (let i = 0; i < daysToPickFromLastMonth; i++) {
-          let currentDayOfMonth = lastDayOfLastMonth - (daysToPickFromLastMonth - (i + 1));
+          const currentDayOfMonth = lastDayOfLastMonth - (daysToPickFromLastMonth - (i + 1));
 
           currentMonthGrid[0][i] = {
-            data: undefined,
             isToday: false,
             isHole: true,
             day: currentDayOfMonth
           };
-        }        
+        }
       }
 
       let fillingDays = 1;
@@ -55,7 +53,6 @@ export class MonthView<T> {
         for (let dayOfWeek = 0; dayOfWeek < this.DAYS_PER_WEEK; dayOfWeek++) {
           if (!!!currentMonthGrid[week][dayOfWeek]) {
             currentMonthGrid[week][dayOfWeek] = {
-              data: undefined,
               isToday: false,
               isHole: true,
               day: fillingDays++
@@ -75,7 +72,7 @@ export class MonthView<T> {
    * @param weekStart Day of week which will be considered
    * the beginning of the week.
    */
-  private createGrid(date: Date, weekStart = DayOfWeek.Monday): Array<Array<DayInfo<T>>> {
+  private createGrid(date: Date, weekStart = DayOfWeek.Monday): Array<Array<DayInfo>> {
     const grid = this.initGrid();
     const firstDayOfWeek =
       DateMath.getFirstDayOfMonth(date).getDay() - weekStart.valueOf();
@@ -87,7 +84,6 @@ export class MonthView<T> {
 
       for (; dayOfWeek < this.DAYS_PER_WEEK && currentDayOfMonth <= lastDay; dayOfWeek++) {
         grid[week][dayOfWeek] = {
-          data: this.state[currentDayOfMonth],
           isToday: this.date.getDate() === currentDayOfMonth,
           isHole: false,
           day: currentDayOfMonth
@@ -108,7 +104,7 @@ export class MonthView<T> {
    * the info about the "shape" of the
    * month.
    */
-  private initGrid(): Array<Array<DayInfo<T>>> {
+  private initGrid(): Array<Array<DayInfo>> {
     const defaultEmpty = undefined;
     const grid = [
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),

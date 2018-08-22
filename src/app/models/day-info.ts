@@ -2,8 +2,7 @@
  * Represents information about one
  * day of the month.
  */
-export class DayInfo<T> {
-    data: T;
+export class DayInfo {
     isToday: boolean;
     isHole: boolean;
     day: number;
@@ -11,9 +10,8 @@ export class DayInfo<T> {
     /**
      * Creates an empty DataInfo.
      */
-    static CreateEmpty(): DayInfo<null> {
+    static CreateEmpty(): DayInfo {
         return {
-            data: null,
             isToday: false,
             isHole: false,
             day: 0
