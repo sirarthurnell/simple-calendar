@@ -1,12 +1,10 @@
-<div class="simple-calendar">
-  <div class="month">
-    <div class="week" *ngFor="let week of view">
-      <div
-        (click)="onDayClicked(day)"
-        class="day"
-        [class.day--hole]="day?.isHole"
-        [class.day--today]="day?.isToday"
-        *ngFor="let day of week">{{ day?.day }}</div>
+<div (click)="onMonthClick()" class="month">
+  <div class="week" *ngFor="let week of view">
+    <div
+      (click)="onDayClick(day)"
+      [class]="getClassForDay(day)"
+      [class.day]="true"
+      *ngFor="let day of week">{{ day?.day }}
     </div>
   </div>
 </div>
