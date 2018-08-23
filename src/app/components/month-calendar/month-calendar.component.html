@@ -1,27 +1,30 @@
+<!-- Month -->
 <div (click)="onMonthClick()"
      class="column month">
 
-  <div class="row">
-
-
-    <div class="square-cell label"
-         *ngFor="let dayOfWeekLabel of dayOfWeekLabels">
-
-      <div class="label__content day-of-week">
-        {{ dayOfWeekLabel }}
-      </div>
-
-    </div>
-
-
+  <!-- Month caption -->
+  <div class="row label">
+      <div class="label__content flex-centered month__caption"> {{ monthCaption }} </div>
   </div>
 
+  <!-- Days of week captions -->
+  <div class="row">
+    <div class="square-cell label month__week-caption"
+         *ngFor="let dayOfWeekCaption of dayOfWeekCaptions">
+
+      <div class="label__content flex-centered">
+        {{ dayOfWeekCaption }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Days -->
   <div class="row"
        *ngFor="let week of view">
     <div (click)="onDayClick(day)"
          [class]="getClassForDay(day)"
          [class.square-cell]="true"
-         [class.day]="true"
+         [class.month__day]="true"
          *ngFor="let day of week">{{ day?.day }}
     </div>
   </div>

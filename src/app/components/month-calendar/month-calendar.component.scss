@@ -1,30 +1,31 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 @import '../../../scss/layout';
+@import '../../../scss/utilities';
 
 .month {
   font-size: $day-font-size;
-}
 
-.day-of-week {
-  border: 1px solid black;
-  align-items: center;
-  justify-content: center;
-}
-
-.day {
-  text-align: right;
-  border: 1px solid black;
-
-  &--hole {
-    color: lightgray;
+  &__week-caption, 
+  &__caption {
+    border: 1px solid black;
+    font-weight: bold;
   }
 
-  &--today {
-    background: pink;
-  }
+  &__day {
+    text-align: right;
+    border: 1px solid black;
 
-  &--selected {
-    background: cornflowerblue;
+    &--hole {
+      color: lightgray;
+    }
+
+    &--today {
+      background: pink;
+    }
+
+    &--selected {
+      background: cornflowerblue;
+    }
   }
 }

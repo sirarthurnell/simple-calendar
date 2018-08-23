@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MonthView } from '../../models/views/moth-view';
 import { DayInfo } from '../../models/day-info';
 import { DayClasses } from '../../models/day-classes';
+import { DAY_NAMES } from '../../models/day-names';
 
 @Component({
   selector: 'app-month-calendar',
@@ -30,18 +31,29 @@ export class MonthCalendarComponent {
 
   @Input() set date(date: Date) {
     this._date = date;
+
+    if (!this.manualMonthCaption) {
+      this.monthCaption = this._date.toDateString();
+    }
+    
     this.view = (new MonthView(this._date)).createView();
   }
 
   /**
-   * Labels to apply to the days of the week.
+   * Captions to apply to the days of the week.
    */
-  @Input() dayOfWeekLabels: string[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+  @Input() dayOfWeekCaptions: string[] = DAY_NAMES.map(d => d.substr(0, 2).toUpperCase());
 
   /**
-   * Label of the month.
+   * Sets if the calendar should not change the caption
+   * of the month automatically.
    */
-  @Input() monthLabel = '';
+  @Input() manualMonthCaption = false;
+
+  /**
+   * Caption of the month.
+   */  
+  @Input() monthCaption = this.date.toDateString();
 
   /**
    * CSS classes for different days inside the month.
@@ -56,12 +68,12 @@ export class MonthCalendarComponent {
   /**
    * CSS class for the current day.
    */
-  @Input() currentDayClass = 'day--today';
+  @Input() currentDayClass = 'month__day--today';
 
   /**
    * CSS class for the selected day.
    */
-  @Input() selectedDayClass = 'day--selected';
+  @Input() selectedDayClass = 'month__day--selected';
 
   /**
    * View of the current month.
