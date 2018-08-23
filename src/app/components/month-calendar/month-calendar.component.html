@@ -1,10 +1,29 @@
-<div (click)="onMonthClick()" class="month">
-  <div class="week" *ngFor="let week of view">
-    <div
-      (click)="onDayClick(day)"
-      [class]="getClassForDay(day)"
-      [class.day]="true"
-      *ngFor="let day of week">{{ day?.day }}
+<div (click)="onMonthClick()"
+     class="column month">
+
+  <div class="row">
+
+
+    <div class="square-cell label"
+         *ngFor="let dayOfWeekLabel of dayOfWeekLabels">
+
+      <div class="label__content day-of-week">
+        {{ dayOfWeekLabel }}
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="row"
+       *ngFor="let week of view">
+    <div (click)="onDayClick(day)"
+         [class]="getClassForDay(day)"
+         [class.square-cell]="true"
+         [class.day]="true"
+         *ngFor="let day of week">{{ day?.day }}
     </div>
   </div>
+
 </div>

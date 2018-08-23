@@ -1,36 +1,30 @@
-$month-font-size: 2rem;
-$day-padding: 5px;
-$day-width: 14.285714%; // 100% / 7 days
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+@import '../../../scss/layout';
 
 .month {
-  display: flex;
-  flex-flow: column;
-  flex: 1;
-  font-size: $month-font-size;
+  font-size: $day-font-size;
 }
 
-.week {
-  display: flex;
-  flex: 1;
+.day-of-week {
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
 }
 
 .day {
-    text-align: right;
-    padding: $day-padding;
-    padding-bottom: calc(#{$day-width} - #{$month-font-size} - #{$day-padding});
-    width: $day-width;
-    border: 1px solid black;
-    overflow: hidden;
+  text-align: right;
+  border: 1px solid black;
 
-    &--hole {
-        color: lightgray;
-    }
+  &--hole {
+    color: lightgray;
+  }
 
-    &--today {
-        background: pink;
-    }
+  &--today {
+    background: pink;
+  }
 
-    &--selected {
-      background: cornflowerblue;
+  &--selected {
+    background: cornflowerblue;
   }
 }

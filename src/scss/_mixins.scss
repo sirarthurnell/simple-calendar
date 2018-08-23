@@ -1,0 +1,26 @@
+/*
+  Creates a flexible column.
+*/
+@mixin flex-column {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+}
+
+/*
+  Creates a flexible square cell.
+*/
+@mixin flex-square-cell($width, $font-size, $padding) {
+  padding: $padding;
+  padding-bottom: calc(#{$width} - #{$font-size} - #{$padding});
+  width: $width;
+  overflow: hidden;
+}
+
+/*
+  Creates a flexible row.
+*/
+@mixin flex-row {
+  display: flex;
+  flex: 1;
+}

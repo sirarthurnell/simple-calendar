@@ -34,9 +34,24 @@ export class MonthCalendarComponent {
   }
 
   /**
+   * Labels to apply to the days of the week.
+   */
+  @Input() dayOfWeekLabels: string[] = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+
+  /**
+   * Label of the month.
+   */
+  @Input() monthLabel = '';
+
+  /**
    * CSS classes for different days inside the month.
    */
   @Input() dayClasses: DayClasses = {};
+
+  /**
+   * CSS class for day.
+   */
+  @Input() dayClass = '';
 
   /**
    * CSS class for the current day.
@@ -69,7 +84,7 @@ export class MonthCalendarComponent {
         return this.currentDayClass;
       }
 
-      return this.dayClasses[day.day] || '';
+      return this.dayClasses[day.day] || this.dayClass;
 
     } else {
       return '';
