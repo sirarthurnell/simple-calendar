@@ -3,11 +3,7 @@
 }
 
 .row {
-  @include flex-row;
-}
-
-.square-cell {
-  @include flex-square-cell($day-width, $day-font-size, $day-padding, $day-border-size);
+  @include flex-row;  
 }
 
 .label {
@@ -19,6 +15,5 @@
     left: 0;
     bottom: 0;
     right: 0;
-    display: flex;
   }
 }

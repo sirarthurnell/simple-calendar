@@ -8,6 +8,16 @@
 }
 
 /*
+  Applies a flexible height to an element.
+*/
+@mixin ratio-height($height, $font-size, $padding, $border-size) {
+  box-sizing: border-box;
+  padding: $padding;
+  padding-bottom: calc(#{$height} - #{$font-size} - #{$padding} - #{2 * $border-size});
+  line-height: $font-size;
+}
+
+/*
   Creates a flexible square cell.
   Border is required because of the percentage applied
   to padding bottom. Even if the box-sizing is border-box,
@@ -16,11 +26,8 @@
   the padding (in percentage) doesn't understand about
   box-sizing.
 */
-@mixin flex-square-cell($width, $font-size, $padding, $border-size) {
-  box-sizing: border-box;
-  padding: $padding;
-  padding-bottom: calc(#{$width} - #{$font-size} - #{$padding} - #{2 * $border-size});
-  line-height: $font-size;
+@mixin ratio-square($width, $font-size, $padding, $border-size) {
+  @include ratio-height($width, $font-size, $padding, $border-size);
   width: $width;
   overflow: hidden;
 }

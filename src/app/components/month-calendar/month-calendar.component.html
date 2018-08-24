@@ -3,15 +3,16 @@
      class="column month">
 
   <!-- Month caption -->
-  <div class="row label">
-      <div class="label__content flex-centered month__caption"> {{ monthCaption }} </div>
+  <div class="row">
+    <div class="ratio-height w-100 label month__caption">
+      <div class="label__content flex-centered"> {{ monthCaption }} </div>
+    </div>      
   </div>
 
   <!-- Days of week captions -->
   <div class="row">
-    <div class="square-cell label month__week-caption"
+    <div class="ratio-square label month__week-caption"
          *ngFor="let dayOfWeekCaption of daysOfWeekCaptions">
-
       <div class="label__content flex-centered">
         {{ dayOfWeekCaption }}
       </div>
@@ -23,7 +24,7 @@
        *ngFor="let week of view">
     <div (click)="onDayClick(day)"
          [class]="getClassForDay(day)"
-         [class.square-cell]="true"
+         [class.ratio-square]="true"
          [class.month__day]="true"
          *ngFor="let day of week">{{ day?.day }}
     </div>

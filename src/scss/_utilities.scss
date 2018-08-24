@@ -1,4 +1,24 @@
 .flex-centered {
+  display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ratio-height {  
+  @include ratio-height($day-width, $day-font-size, $day-padding, $day-border-size);
+}
+
+.ratio-square {
+  @include ratio-square($day-width, $day-font-size, $day-padding, $day-border-size);
+}
+
+.ratio-height,
+.ratio-square {
+  &::before {
+    content: '\00a0';
+  }
+}
+
+.w-100 {
+  width: 100%;
 }
