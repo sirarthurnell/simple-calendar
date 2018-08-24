@@ -164,6 +164,8 @@ export class MonthCalendarComponent implements ControlValueAccessor {
    * Controls the click event of the month.
    */
   onMonthClick(): void {
-    this.monthClick.emit(this);
+    if (!this.disabled) {
+      this.monthClick.emit(this);
+    }
   }
 }
