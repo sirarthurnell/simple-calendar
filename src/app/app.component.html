@@ -1,6 +1,12 @@
-<app-month-calendar class="full-height"
-                    [date]="date"
-                    [dayClasses]="dayClasses">
-</app-month-calendar>
+<form>
 
-<button (click)="createNewMonth()">Create month</button>
+  <app-month-calendar class="full-height"
+                      [(ngModel)]="date"
+                      [dayClasses]="dayClasses"
+                      name="hey">
+  </app-month-calendar>
+
+</form>
+
+
+<button (click)="createNewMonth()">Create month</button> {{ date }}

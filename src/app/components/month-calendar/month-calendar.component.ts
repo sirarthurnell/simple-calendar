@@ -1,15 +1,26 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { MonthView } from '../../models/views/moth-view';
-import { DayInfo } from '../../models/day-info';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DayClasses } from '../../models/day-classes';
+import { DayInfo } from '../../models/day-info';
 import { DAY_NAMES } from '../../models/day-names';
+import { MonthView } from '../../models/views/moth-view';
+
+/**
+ * Month calendar provider.
+ */
+export const MONTH_CALENDAR_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => MonthCalendarComponent),
+  multi: true
+};
 
 @Component({
   selector: 'app-month-calendar',
   templateUrl: './month-calendar.component.html',
-  styleUrls: ['./month-calendar.component.scss']
+  styleUrls: ['./month-calendar.component.scss'],
+  providers: [MONTH_CALENDAR_VALUE_ACCESSOR]
 })
-export class MonthCalendarComponent {
+export class MonthCalendarComponent implements ControlValueAccessor {
   /**
    * Event raised when the user selects a date.
    */
@@ -21,28 +32,33 @@ export class MonthCalendarComponent {
   @Output('monthClick') monthClick = new EventEmitter<MonthCalendarComponent>();
 
   /**
-   * Date to show.
+   * Sets if the control should be in a
+   * disabled state.
    */
-  private _date = new Date();
-
-  get date(): Date {
-    return this._date;
+  @Input() disabled = false;
+  @HostBinding('style.opacity') get opacity() {
+    return this.disabled ? 0.25 : 1;
   }
 
-  @Input() set date(date: Date) {
-    this._date = date;
+  /**
+   * Date to show.
+   */
+  private _value = new Date();
 
-    if (!this.manualMonthCaption) {
-      this.monthCaption = this._date.toDateString();
-    }
+  get value(): Date {
+    return this._value;
+  }
 
-    this.view = (new MonthView(this._date)).createView();
+  @Input() set value(date: Date) {
+      this.writeValue(date);
   }
 
   /**
    * Captions to apply to the days of the week.
    */
-  @Input() dayOfWeekCaptions: string[] = DAY_NAMES.map(d => d.substr(0, 2).toUpperCase());
+  @Input() dayOfWeekCaptions: string[] = DAY_NAMES.map(d =>
+    d.substr(0, 2).toUpperCase()
+  );
 
   /**
    * Sets if the calendar should not change the caption
@@ -53,7 +69,7 @@ export class MonthCalendarComponent {
   /**
    * Caption of the month.
    */
-  @Input() monthCaption = this.date.toDateString();
+  @Input() monthCaption = this.value.toDateString();
 
   /**
    * CSS classes for different days inside the month.
@@ -78,7 +94,35 @@ export class MonthCalendarComponent {
   /**
    * View of the current month.
    */
-  view = (new MonthView(this._date)).createView();
+  view = new MonthView(this.value).createView();
+
+  private onChange = (date: Date) => {};
+  private onTouched = () => {};
+
+  writeValue(date: Date): void {
+    if (date) {
+      if (!this.manualMonthCaption) {
+        this.monthCaption = date.toDateString();
+      }
+
+      this.view = new MonthView(date).createView();
+      this._value = date;
+    }
+
+    this.onChange(date);
+  }
+
+  registerOnChange(fn: (date: Date) => {}): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
 
   /**
    * Gets the CSS class applicable to
@@ -87,8 +131,7 @@ export class MonthCalendarComponent {
    */
   getClassForDay(day: DayInfo): string {
     if (day) {
-
-      if (day.day === this._date.getDate()) {
+      if (day.day === this.value.getDate()) {
         return this.selectedDayClass;
       }
 
@@ -97,7 +140,6 @@ export class MonthCalendarComponent {
       }
 
       return this.dayClasses[day.day] || this.dayClass;
-
     } else {
       return '';
     }
@@ -108,11 +150,11 @@ export class MonthCalendarComponent {
    * @param dayInfo Info about the selected day.
    */
   onDayClick(dayInfo: DayInfo): void {
-    if (dayInfo) {
-      const selectedDate = new Date(this.date.valueOf());
+    if (!this.disabled && dayInfo) {
+      const selectedDate = new Date(this.value.valueOf());
       selectedDate.setDate(dayInfo.day);
 
-      this.date = new Date(selectedDate.valueOf());
+      this.value = new Date(selectedDate.valueOf());
 
       this.change.emit(selectedDate);
     }
@@ -124,5 +166,4 @@ export class MonthCalendarComponent {
   onMonthClick(): void {
     this.monthClick.emit(this);
   }
-
 }
