@@ -35,7 +35,7 @@ export class MonthCalendarComponent {
     if (!this.manualMonthCaption) {
       this.monthCaption = this._date.toDateString();
     }
-    
+
     this.view = (new MonthView(this._date)).createView();
   }
 
@@ -52,7 +52,7 @@ export class MonthCalendarComponent {
 
   /**
    * Caption of the month.
-   */  
+   */
   @Input() monthCaption = this.date.toDateString();
 
   /**

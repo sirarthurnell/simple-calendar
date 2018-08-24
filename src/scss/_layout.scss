@@ -7,7 +7,7 @@
 }
 
 .square-cell {
-  @include flex-square-cell($day-width, $day-font-size, $day-padding);
+  @include flex-square-cell($day-width, $day-font-size, $day-padding, $day-border-size);
 }
 
 .label {

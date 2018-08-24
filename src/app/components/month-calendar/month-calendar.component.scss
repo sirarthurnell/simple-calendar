@@ -6,15 +6,15 @@
 .month {
   font-size: $day-font-size;
 
-  &__week-caption, 
+  &__week-caption,
   &__caption {
-    border: 1px solid black;
+    border: $day-border-size solid black;
     font-weight: bold;
   }
 
   &__day {
     text-align: right;
-    border: 1px solid black;
+    border: $day-border-size solid black;
 
     &--hole {
       color: lightgray;

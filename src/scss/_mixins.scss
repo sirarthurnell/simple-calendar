@@ -9,10 +9,18 @@
 
 /*
   Creates a flexible square cell.
+  Border is required because of the percentage applied
+  to padding bottom. Even if the box-sizing is border-box,
+  when it comes to calculate the padding-bottom, the
+  border must have been taken into account, because
+  the padding (in percentage) doesn't understand about
+  box-sizing.
 */
-@mixin flex-square-cell($width, $font-size, $padding) {
+@mixin flex-square-cell($width, $font-size, $padding, $border-size) {
+  box-sizing: border-box;
   padding: $padding;
-  padding-bottom: calc(#{$width} - #{$font-size} - #{$padding});
+  padding-bottom: calc(#{$width} - #{$font-size} - #{$padding} - #{2 * $border-size});
+  line-height: $font-size;
   width: $width;
   overflow: hidden;
 }
