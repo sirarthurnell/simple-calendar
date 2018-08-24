@@ -11,15 +11,24 @@ export class AppComponent {
 
   date = new Date();
 
-  dayClasses: DayClasses = {
-    1: 'raised'
-  };
+  monthCaptionFormatter(date: Date): string {
+    return date.toLocaleDateString();
+  }
 
-  createNewMonth(): void {
-    this.date = new Date(2014, 1, 1);
-    this.dayClasses = {
+  dayOfWeekCaptionFormatter(dayOfWeek: number): string {
+    return Math.random().toString().substr(2, 2);
+  }
+
+  customDayClass(date: Date): string {
+    const classes = {
       1: 'raised',
       2: 'raised-again'
     };
+
+    return classes[date.getDate()];
+  }
+
+  createNewMonth(): void {
+    this.date = new Date(2014, 1, 1);
   }
 }
