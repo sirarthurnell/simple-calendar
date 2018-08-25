@@ -9,12 +9,18 @@
     </div>
   </div>
 
-  <!-- Days of week captions -->
+  <!-- Week captions -->
   <div class="row">
-    <div class="ratio-square label month__week-caption"
-         *ngFor="let dayOfWeekCaption of daysOfWeekCaptions">
-      <div class="label__content flex-centered">
-        {{ dayOfWeekCaption }}
+
+    <!-- Week captions cell -->
+    <div class="ratio-square label "
+         *ngFor="let dayOfWeekCaption of daysOfWeekCaptions; let i = index">
+
+      <!-- Week caption cell content -->
+      <div class="label__content">
+
+        <ng-container *ngTemplateOutlet="dayOfWeekTemplate ? dayOfWeekTemplate : defaultDayOfWeekTemplate; context: { $implicit: dayOfWeekCaption, dayOfWeekIndex: i }"></ng-container>
+
       </div>
     </div>
   </div>
@@ -27,11 +33,14 @@
     <div (click)="onDayClick(day)"
          class="ratio-square label"
          *ngFor="let day of week">
-      <div [class.label__content]="true">
+
+      <!-- Day content -->
+      <div class="label__content">
 
         <ng-container *ngTemplateOutlet="dayTemplate ? dayTemplate : defaultDayTemplate; context: { $implicit: day }"></ng-container>
 
       </div>
+
     </div>
 
   </div>
@@ -41,10 +50,22 @@
 <!-- Templates -->
 
 <!-- Day template -->
-<ng-template #defaultDayTemplate let-day>
+<ng-template #defaultDayTemplate
+             let-day>
   <div class="flex-expanded-container">
     <div [class]="getClassForDay(day)"
          [class.flex-expand]="true"
          [class.month__day]="true">{{ day?.day }}</div>
+  </div>
+</ng-template>
+
+<!-- Day of week cells template -->
+<ng-template #defaultDayOfWeekTemplate
+             let-dayOfWeek
+             let-dayOfWeekIndex="dayOfWeekIndex">
+  <div class="flex-expanded-container">
+    <div class="flex-expand flex-centered month__week-caption">
+      {{ dayOfWeek }}
+    </div>
   </div>
 </ng-template>

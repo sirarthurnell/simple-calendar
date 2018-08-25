@@ -4,6 +4,8 @@ import { DayInfo } from '../../models/day-info';
 import { DAY_NAMES } from '../../models/day-names';
 import { MonthView } from '../../models/views/moth-view';
 import { DayTemplateDirective } from '../../directives/day-template.directive';
+import { DayOfWeekTemplateDirective } from '../../directives/day-of-week-template.directive';
+import { MonthTemplateDirective } from '../../directives/month-template.directive';
 
 /**
  * Month calendar provider.
@@ -25,6 +27,8 @@ export const MONTH_CALENDAR_VALUE_ACCESSOR: any = {
 })
 export class MonthCalendarComponent implements ControlValueAccessor {
   @ContentChild(DayTemplateDirective, { read: TemplateRef }) dayTemplate;
+  @ContentChild(DayOfWeekTemplateDirective, { read: TemplateRef }) dayOfWeekTemplate;
+  @ContentChild(MonthTemplateDirective, { read: TemplateRef }) monthTemplate;
 
   /**
    * Event raised when the user selects a date.
