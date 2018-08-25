@@ -86,7 +86,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   /**
    * CSS class for day.
    */
-  @Input() dayClass = '';
+  @Input() dayClass = 'month__day--default';
 
   /**
    * CSS class for the current day.
@@ -172,7 +172,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
       if (this.customDayClass) {
         const date = new Date(this.value.valueOf());
         date.setDate(day.day);
-        return this.customDayClass(date);
+        return this.customDayClass(date) || this.dayClass;
       }
 
       return this.dayClass;

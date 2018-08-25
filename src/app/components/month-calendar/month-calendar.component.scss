@@ -12,9 +12,12 @@
     font-weight: bold;
   }
 
-  &__day {
-    text-align: right;
+  &__day {    
     border: $day-border-size solid black;
+
+    &--default {
+      text-align: initial;
+    }
 
     &--hole {
       color: lightgray;
