@@ -1,8 +1,9 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output, ContentChild, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DayInfo } from '../../models/day-info';
 import { DAY_NAMES } from '../../models/day-names';
 import { MonthView } from '../../models/views/moth-view';
+import { DayTemplateDirective } from '../../directives/day-template.directive';
 
 /**
  * Month calendar provider.
@@ -23,6 +24,8 @@ export const MONTH_CALENDAR_VALUE_ACCESSOR: any = {
   providers: [MONTH_CALENDAR_VALUE_ACCESSOR]
 })
 export class MonthCalendarComponent implements ControlValueAccessor {
+  @ContentChild(DayTemplateDirective, { read: TemplateRef }) dayTemplate;
+
   /**
    * Event raised when the user selects a date.
    */

@@ -5,6 +5,11 @@
                       [customDayClass]="customDayClass"
                       [monthCaptionFormatter]="monthCaptionFormatter"
                       name="hey">
+
+    <ng-template appDayTemplate let-day>
+      {{ day?.day }}
+    </ng-template>
+
   </app-month-calendar>
 
 </form>

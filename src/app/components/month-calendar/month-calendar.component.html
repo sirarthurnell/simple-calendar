@@ -23,18 +23,13 @@
   <div class="row"
        *ngFor="let week of view">
 
-       <!-- Day cell -->
+    <!-- Day cell -->
     <div (click)="onDayClick(day)"
          class="ratio-square label"
          *ngFor="let day of week">
       <div [class.label__content]="true">
 
-        <!-- Day template -->
-        <div class="flex-expanded-container">
-          <div [class]="getClassForDay(day)"
-               [class.flex-expand]="true"
-               [class.month__day]="true">{{ day?.day }}</div>
-        </div>
+        <ng-container *ngTemplateOutlet="dayTemplate ? dayTemplate : defaultDayTemplate; context: { $implicit: day }"></ng-container>
 
       </div>
     </div>
@@ -42,3 +37,14 @@
   </div>
 
 </div>
+
+<!-- Templates -->
+
+<!-- Day template -->
+<ng-template #defaultDayTemplate let-day>
+  <div class="flex-expanded-container">
+    <div [class]="getClassForDay(day)"
+         [class.flex-expand]="true"
+         [class.month__day]="true">{{ day?.day }}</div>
+  </div>
+</ng-template>
