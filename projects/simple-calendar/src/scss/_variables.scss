@@ -2,3 +2,5 @@ $day-border-size: 1px;
 $day-font-size: 2rem;
 $day-padding: 5px;
 $day-width: 14.285714%; // 100% / 7 days
+
+$utilities-content: '\00a0'; // Transpilation issue with SASS and backslash

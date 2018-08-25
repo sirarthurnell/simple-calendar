@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appDayOfWeekCaptionTemplate]'
+  selector: '[scDayOfWeekCaptionTemplate]'
 })
 export class DayOfWeekCaptionTemplateDirective {
 

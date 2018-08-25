@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "simple-calendar": {
+    "simple-calendar-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/simple-calendar",
+            "outputPath": "dist/simple-calendar-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "simple-calendar:build"
+            "browserTarget": "simple-calendar-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "simple-calendar:build:production"
+              "browserTarget": "simple-calendar-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "simple-calendar:build"
+            "browserTarget": "simple-calendar-app:build"
           }
         },
         "lint": {
@@ -100,7 +100,47 @@
           }
         }
       }
+    },
+    "simple-calendar": {
+      "root": "projects/simple-calendar",
+      "sourceRoot": "projects/simple-calendar/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/simple-calendar/tsconfig.lib.json",
+            "project": "projects/simple-calendar/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/simple-calendar/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/simple-calendar/src/test.ts",
+            "tsConfig": "projects/simple-calendar/tsconfig.spec.json",
+            "karmaConfig": "projects/simple-calendar/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/simple-calendar/tsconfig.lib.json",
+              "projects/simple-calendar/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "simple-calendar"
+  "defaultProject": "simple-calendar-app"
 }

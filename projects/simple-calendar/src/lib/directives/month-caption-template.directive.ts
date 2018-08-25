@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[appMonthCaptionTemplate]'
+  selector: '[scMonthCaptionTemplate]'
 })
 export class MonthCaptionTemplateDirective {
 

@@ -20,7 +20,7 @@ export const MONTH_CALENDAR_VALUE_ACCESSOR: any = {
  * Control that represents a calendar.
  */
 @Component({
-  selector: 'app-month-calendar',
+  selector: 'sc-month-calendar',
   templateUrl: './month-calendar.component.html',
   styleUrls: ['./month-calendar.component.scss'],
   providers: [MONTH_CALENDAR_VALUE_ACCESSOR]

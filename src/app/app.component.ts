@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DayClasses } from './models/day-classes';
 
 @Component({
   selector: 'app-root',

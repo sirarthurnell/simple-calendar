@@ -5,7 +5,7 @@ import { Directive } from '@angular/core';
  * for the day cell.
  */
 @Directive({
-  selector: '[appDayTemplate]'
+  selector: '[scDayTemplate]'
 })
 export class DayTemplateDirective {
 

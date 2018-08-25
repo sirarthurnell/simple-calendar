@@ -15,6 +15,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "simple-calendar": [
+        "dist/simple-calendar"
+      ],
+      "simple-calendar/*": [
+        "dist/simple-calendar/*"
+      ]
+    }
   }
 }

@@ -25,7 +25,7 @@ export class DateMath {
      * the specified date.
      */
     static substractDays(date: Date, days: number): Date {
-        return this.addDays(date, -days);
+        return DateMath.addDays(date, -days);
     }
 
     /**
