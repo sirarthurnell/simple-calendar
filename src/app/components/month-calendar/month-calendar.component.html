@@ -1,11 +1,20 @@
 <!-- Month -->
 <div (click)="onMonthClick()"
-     class="column month">
+     [className]="monthClass"
+     [class.column]="true">
 
   <!-- Month caption -->
   <div class="row">
-    <div class="ratio-height w-100 label month__caption">
-      <div class="label__content flex-centered"> {{ monthCaption }} </div>
+
+    <!-- Month caption cell -->
+    <div class="ratio-height w-100 label">
+
+      <!-- Month caption cell content -->
+      <div class="label__content">
+
+        <ng-container *ngTemplateOutlet="monthTemplate ? monthTemplate : defaultMonthTemplate; context: { $implicit: value }"></ng-container>
+
+      </div>
     </div>
   </div>
 
@@ -47,6 +56,8 @@
 
 </div>
 
+
+
 <!-- Templates -->
 
 <!-- Day template -->
@@ -64,8 +75,22 @@
              let-dayOfWeek
              let-dayOfWeekIndex="dayOfWeekIndex">
   <div class="flex-expanded-container">
-    <div class="flex-expand flex-centered month__week-caption">
+    <div [className]="dayOfWeekCaptionClass"
+         [class.flex-expand]="true"
+         [class.flex-centered]="true">
       {{ dayOfWeek }}
+    </div>
+  </div>
+</ng-template>
+
+<!-- Month cell template -->
+<ng-template #defaultMonthTemplate
+             let-date>
+  <div class="flex-expanded-container">
+    <div [className]="monthCaptionClass"
+         [class.flex-expand]="true"
+         [class.flex-centered]="true">
+      {{ monthCaption }}
     </div>
   </div>
 </ng-template>

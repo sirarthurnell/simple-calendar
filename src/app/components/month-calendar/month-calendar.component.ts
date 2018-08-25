@@ -91,6 +91,21 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   @Input() customDayClass: (date: Date) => string;
 
   /**
+   * CSS class for the month.
+   */
+  @Input() monthClass = 'month';
+
+  /**
+   * CSS class for the month caption.
+   */
+  @Input() monthCaptionClass = 'month__caption';
+
+  /**
+   * CSS class for the day of the week captions.
+   */
+  @Input() dayOfWeekCaptionClass = 'month__week-caption';
+
+  /**
    * CSS class for day.
    */
   @Input() dayClass = 'month__day--default';
