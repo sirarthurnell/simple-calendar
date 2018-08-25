@@ -63,6 +63,11 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   }
 
   /**
+   * Formatter for days.
+   */
+  @Input() dayFormatter: (day: DayInfo) => string;
+
+  /**
    * Captions of the different days of the week.
    */
   daysOfWeekCaptions = DAY_NAMES.map(d =>
@@ -200,6 +205,19 @@ export class MonthCalendarComponent implements ControlValueAccessor {
       return this.dayClass;
     } else {
       return '';
+    }
+  }
+
+  /**
+   * Gets a formatted string corresponding
+   * to the specified day.
+   * @param day Day to format.
+   */
+  getFormattedDay(day: DayInfo): string {
+    if (this.dayFormatter) {
+      return this.dayFormatter(day);
+    } else {
+      return day ? day.day.toString() : '';
     }
   }
 
