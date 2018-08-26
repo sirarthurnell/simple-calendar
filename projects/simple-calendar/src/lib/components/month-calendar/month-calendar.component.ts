@@ -6,6 +6,8 @@ import { MonthView } from '../../models/views/moth-view';
 import { DayTemplateDirective } from '../../directives/day-template.directive';
 import { DayOfWeekCaptionTemplateDirective } from '../../directives/day-of-week-caption-template.directive';
 import { MonthCaptionTemplateDirective } from '../../directives/month-caption-template.directive';
+import { DayOfWeek } from '../../models/day-of-week';
+import { defaultDayOfWeekCaptionFormatterFactory } from '../../models/formatters/day-of-week-caption-formatter';
 
 /**
  * Month calendar provider.
@@ -61,6 +63,11 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   @Input() set value(date: Date) {
       this.writeValue(date);
   }
+
+  /**
+   * First day of the week.
+   */
+  @Input() firstDayOfWeek = DayOfWeek.Sunday;
 
   /**
    * Formatter for days.
@@ -137,13 +144,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
    * Creates a new instance of MonthCalendarComponent.
    */
   constructor() {
-    this.dayOfWeekCaptionFormatter = (dayOfWeek: number): string => {
-      const dayNames = DAY_NAMES.map(d =>
-        d.substr(0, 2).toUpperCase()
-      );
-
-      return dayNames[dayOfWeek];
-    };
+    this.dayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.firstDayOfWeek);
   }
 
   writeValue(date: Date): void {
@@ -162,7 +163,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
         this.daysOfWeekCaptions = dayCaptions;
       }
 
-      this.view = new MonthView(date).createView();
+      this.view = new MonthView(date).createView(false, this.firstDayOfWeek);
       this._value = date;
     }
 
