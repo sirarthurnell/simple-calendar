@@ -98,32 +98,32 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   /**
    * CSS class for the month.
    */
-  @Input() monthClass = 'month';
+  @Input() monthClass = 'sc-month';
 
   /**
    * CSS class for the month caption.
    */
-  @Input() monthCaptionClass = 'month__caption';
+  @Input() monthCaptionClass = 'sc-month__caption';
 
   /**
    * CSS class for the day of the week captions.
    */
-  @Input() dayOfWeekCaptionClass = 'month__week-caption';
+  @Input() dayOfWeekCaptionClass = 'sc-month__week-caption';
 
   /**
    * CSS class for day.
    */
-  @Input() dayClass = 'month__day--default';
+  @Input() dayClass = 'sc-month__day--default';
 
   /**
    * CSS class for the current day.
    */
-  @Input() currentDayClass = 'month__day--today';
+  @Input() currentDayClass = 'sc-month__day--today';
 
   /**
    * CSS class for the selected day.
    */
-  @Input() selectedDayClass = 'month__day--selected';
+  @Input() selectedDayClass = 'sc-month__day--selected';
 
   /**
    * View of the current month.
