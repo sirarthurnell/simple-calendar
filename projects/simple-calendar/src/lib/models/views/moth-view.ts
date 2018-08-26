@@ -1,5 +1,5 @@
 import { DayOfWeek } from '../day-of-week';
-import { DateMath } from '../../core/date/date-math';
+import { DateMath } from '../dates/date-math';
 import { DayInfo } from '../day-info';
 
 /**
