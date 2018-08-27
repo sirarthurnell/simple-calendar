@@ -7,13 +7,13 @@ import { DayOfWeek } from "../day-of-week";
  * @param dayOfWeek Day of the week.
  */
 export function defaultDayOfWeekCaptionFormatterFactory(firstDayOfWeek: DayOfWeek): (dayOfWeek: number) => string {
-  return (dayOfWeek: number) => {
+  return (dayOfWeek: DayOfWeek) => {
     const formattedDayNames = DAY_NAMES.map(
       dayName => formatDayName(dayName)
     );
 
     const reordered = reorderDays(formattedDayNames, firstDayOfWeek);
-    return reordered[dayOfWeek];
+    return reordered[dayOfWeek.valueOf()];
   };
 }
 

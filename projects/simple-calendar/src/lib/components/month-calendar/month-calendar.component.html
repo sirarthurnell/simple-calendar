@@ -1,16 +1,20 @@
 <!-- Month -->
 <div (click)="onMonthClick()"
      [className]="monthClass"
-     [class.column]="true">
+     [class.column]="true"
+     [class.stretch-vertically]="grow.mode == 'stretch'">
 
   <!-- Month caption -->
   <div class="row">
 
     <!-- Month caption cell -->
-    <div class="ratio-height w-100 label">
+    <div class="w-100"
+         [class.label]="grow.mode != 'mixed'"
+         [class.ratio-height]="grow.mode == 'proportional'"
+         [class.stretch-horizontally]="grow.mode == 'stretch' || grow.mode == 'mixed'">
 
       <!-- Month caption cell content -->
-      <div class="label__content">
+      <div [class.label__content]="grow.mode != 'mixed'">
 
         <ng-container *ngTemplateOutlet="monthTemplate ? monthTemplate : defaultMonthTemplate; context: { $implicit: value }"></ng-container>
 
@@ -22,11 +26,13 @@
   <div class="row">
 
     <!-- Week captions cell -->
-    <div class="ratio-square label "
+    <div [class.label]="grow.mode != 'mixed'"
+         [class.ratio-square]="grow.mode == 'proportional'"
+         [class.stretch-horizontally]="grow.mode == 'stretch' || grow.mode == 'mixed'"
          *ngFor="let dayOfWeekCaption of daysOfWeekCaptions; let i = index">
 
       <!-- Week caption cell content -->
-      <div class="label__content">
+      <div [class.label__content]="grow.mode != 'mixed'">
 
         <ng-container *ngTemplateOutlet="dayOfWeekTemplate ? dayOfWeekTemplate : defaultDayOfWeekTemplate; context: { $implicit: dayOfWeekCaption, dayOfWeekIndex: i }"></ng-container>
 
@@ -41,6 +47,8 @@
     <!-- Day cell -->
     <div (click)="onDayClick(day)"
          class="ratio-square label"
+         [class.ratio-square]="grow.mode == 'proportional' || grow.mode == 'mixed'"
+         [class.stretch-horizontally]="grow.mode == 'stretch'"
          *ngFor="let day of week">
 
       <!-- Day content -->
@@ -74,7 +82,7 @@
 <ng-template #defaultDayOfWeekTemplate
              let-dayOfWeek
              let-dayOfWeekIndex="dayOfWeekIndex">
-  <div class="flex-expanded-container">
+  <div [class.flex-expanded-container]="grow.mode != 'mixed'">
     <div [className]="dayOfWeekCaptionClass"
          [class.flex-expand]="true"
          [class.flex-centered]="true">
@@ -86,7 +94,7 @@
 <!-- Month cell template -->
 <ng-template #defaultMonthTemplate
              let-date>
-  <div class="flex-expanded-container">
+  <div [class.flex-expanded-container]="grow.mode != 'mixed'">
     <div [className]="monthCaptionClass"
          [class.flex-expand]="true"
          [class.flex-centered]="true">

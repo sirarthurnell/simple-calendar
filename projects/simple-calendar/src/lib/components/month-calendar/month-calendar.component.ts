@@ -8,6 +8,7 @@ import { DayOfWeekCaptionTemplateDirective } from '../../directives/day-of-week-
 import { MonthCaptionTemplateDirective } from '../../directives/month-caption-template.directive';
 import { DayOfWeek } from '../../models/day-of-week';
 import { defaultDayOfWeekCaptionFormatterFactory } from '../../models/formatters/day-of-week-caption-formatter';
+import { GrowMode } from '../../models/grow-mode';
 
 /**
  * Month calendar provider.
@@ -65,6 +66,11 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   }
 
   /**
+   * Specifies how a day cell should grow.
+   */
+  @Input() grow: GrowMode = { mode: 'stretch' };
+
+  /**
    * First day of the week.
    */
   @Input() firstDayOfWeek = DayOfWeek.Sunday;
@@ -85,7 +91,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
    * Formatter for the captions of the different
    * days of the week.
    */
-  @Input() dayOfWeekCaptionFormatter: (dayOfWeek: number) => string;
+  @Input() dayOfWeekCaptionFormatter: (dayOfWeek: DayOfWeek) => string;
 
   /**
    * Caption of the month.

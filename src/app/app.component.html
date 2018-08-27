@@ -1,16 +1,20 @@
 <form>
 
-  <sc-month-calendar class="full-height"
-                      [(ngModel)]="date"
-                      [customDayClass]="customDayClass"
-                      [monthCaptionFormatter]="monthCaptionFormatter"
-                      name="hey">
+  <div class="wrapper">
 
-    <!-- <ng-template appDayTemplate let-day>
+    <sc-month-calendar class="full-height"
+                       [(ngModel)]="date"
+                       [customDayClass]="customDayClass"
+                       [monthCaptionFormatter]="monthCaptionFormatter"
+                       name="hey">
+
+      <!-- <ng-template appDayTemplate let-day>
       {{ day?.day }}
     </ng-template> -->
 
-  </sc-month-calendar>
+    </sc-month-calendar>
+
+  </div>
 
 </form>
 

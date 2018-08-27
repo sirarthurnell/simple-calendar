@@ -16,18 +16,24 @@
 }
 
 .ratio-height {  
-  @include ratio-height($day-width, $day-font-size, $day-padding, $day-border-size);
+  @include ratio-height($day-width);
 }
 
 .ratio-square {
-  @include ratio-square($day-width, $day-font-size, $day-padding, $day-border-size);
+  @include ratio-square($day-width);
 }
 
-.ratio-height,
-.ratio-square {
-  &::before {
-    content: $utilities-content;
-  }
+.stretch-vertically {
+  height: 100%;
+}
+
+.stretch-horizontally {
+  width: $day-width;
+}
+
+.fixed-height {
+  display: flex;
+  flex: 1;
 }
 
 .w-100 {

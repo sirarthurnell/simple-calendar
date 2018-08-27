@@ -10,11 +10,8 @@
 /*
   Applies a flexible height to an element.
 */
-@mixin ratio-height($height, $font-size, $padding, $border-size) {
-  box-sizing: border-box;
-  padding: $padding;
-  padding-bottom: calc(#{$height} - #{$font-size} - #{$padding} - #{2 * $border-size});
-  line-height: $font-size;
+@mixin ratio-height($height) {
+  padding-bottom: $height;
 }
 
 /*
@@ -26,10 +23,9 @@
   the padding (in percentage) doesn't understand about
   box-sizing.
 */
-@mixin ratio-square($width, $font-size, $padding, $border-size) {
-  @include ratio-height($width, $font-size, $padding, $border-size);
+@mixin ratio-square($width) {
+  @include ratio-height($width);
   width: $width;
-  overflow: hidden;
 }
 
 /*
