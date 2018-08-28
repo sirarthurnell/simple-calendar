@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, HostBinding, Input, Output, ContentChild, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, forwardRef, HostBinding, Input, Output, ContentChild, TemplateRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DayInfo } from '../../models/day-info';
 import { DAY_NAMES } from '../../models/day-names';
@@ -28,7 +28,7 @@ export const MONTH_CALENDAR_VALUE_ACCESSOR: any = {
   styleUrls: ['./month-calendar.component.scss'],
   providers: [MONTH_CALENDAR_VALUE_ACCESSOR]
 })
-export class MonthCalendarComponent implements ControlValueAccessor {
+export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   @ContentChild(DayTemplateDirective, { read: TemplateRef }) dayTemplate;
   @ContentChild(DayOfWeekCaptionTemplateDirective, { read: TemplateRef }) dayOfWeekTemplate;
   @ContentChild(MonthCaptionTemplateDirective, { read: TemplateRef }) monthTemplate;
@@ -62,7 +62,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   }
 
   @Input() set value(date: Date) {
-      this.writeValue(date);
+    this.writeValue(date);
   }
 
   /**
@@ -78,30 +78,55 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   /**
    * Formatter for days.
    */
-  @Input() dayFormatter: (day: DayInfo) => string;
+  private _dayFormatter: (day: DayInfo) => string;
+
+  @Input() set dayFormatter (formatter: (day: DayInfo) => string) {
+    this._dayFormatter = formatter;
+    this.refresh();
+  }
+
+  get dayFormatter(): (day: DayInfo) => string {
+    return this._dayFormatter;
+  }
 
   /**
    * Captions of the different days of the week.
    */
-  daysOfWeekCaptions = DAY_NAMES.map(d =>
-    d.substr(0, 2).toUpperCase()
-  );
+  daysOfWeekCaptions;
 
   /**
    * Formatter for the captions of the different
    * days of the week.
    */
-  @Input() dayOfWeekCaptionFormatter: (dayOfWeek: DayOfWeek) => string;
+  private _dayOfWeekCaptionFormatter: (dayOfWeek: DayOfWeek) => string;
+
+  @Input() set dayOfWeekCaptionFormatter (formatter: (dayOfWeek: DayOfWeek) => string) {
+    this._dayOfWeekCaptionFormatter = formatter;
+    this.refresh();
+  }
+
+  get dayOfWeekCaptionFormatter(): (dayOfWeek: DayOfWeek) => string {
+    return this._dayOfWeekCaptionFormatter;
+  }
 
   /**
    * Caption of the month.
    */
-  monthCaption = this.value.toDateString();
+  monthCaption;
 
   /**
    * Formatter for the month caption.
    */
-  @Input() monthCaptionFormatter: (date: Date) => string;
+  private _monthCaptionFormatter: (date: Date) => string;
+
+  @Input() set monthCaptionFormatter (formatter: (date: Date) => string) {
+    this._monthCaptionFormatter = formatter;
+    this.refresh();
+  }
+
+  get monthCaptionFormatter(): (date: Date) => string {
+    return this._monthCaptionFormatter;
+  }
 
   /**
    * Retrieves a CSS class for the specified day.
@@ -141,39 +166,27 @@ export class MonthCalendarComponent implements ControlValueAccessor {
   /**
    * View of the current month.
    */
-  view = new MonthView(this.value).createView();
+  view;
 
-  private onChange = (date: Date) => {};
-  private onTouched = () => {};
+  private defaultDayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.firstDayOfWeek);
+  private defaultMonthCaptionFormatter = (date: Date) => date.toDateString();
+  private defaultDayFormatter = (day: DayInfo) => day ? day.day.toString() : '';
+  private onChange = (date: Date) => { };
+  private onTouched = () => { };
 
   /**
-   * Creates a new instance of MonthCalendarComponent.
+   * Initializes the component.
    */
-  constructor() {
-    this.dayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.firstDayOfWeek);
+  ngOnInit() {
+    this.refresh();
   }
 
   writeValue(date: Date): void {
     if (date) {
-      if (this.monthCaptionFormatter) {
-        this.monthCaption = this.monthCaptionFormatter(date);
-      }
-
-      if (this.dayOfWeekCaptionFormatter) {
-        const dayCaptions: string[] = [];
-
-        for (let i = 0; i < DAY_NAMES.length; i++) {
-          dayCaptions.push(this.dayOfWeekCaptionFormatter(i));
-        }
-
-        this.daysOfWeekCaptions = dayCaptions;
-      }
-
-      this.view = new MonthView(date).createView(false, this.firstDayOfWeek);
       this._value = date;
+      this.refresh();
+      this.onChange(date);
     }
-
-    this.onChange(date);
   }
 
   registerOnChange(fn: (date: Date) => {}): void {
@@ -186,6 +199,52 @@ export class MonthCalendarComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  /**
+   * Refreshes the component.
+   */
+  private refresh(): void {
+    this.refreshMonthCaption(this.value);
+    this.refreshDayOfWeekCaptions();
+    this.refreshView(this.value);
+  }
+
+  /**
+   * Refreshes the month caption.
+   * @param date Date.
+   */
+  private refreshMonthCaption(date: Date): void {
+    if (this.monthCaptionFormatter) {
+      this.monthCaption = this.monthCaptionFormatter(date);
+    } else {
+      this.monthCaption = this.defaultMonthCaptionFormatter(date);
+    }
+  }
+
+  /**
+   * Refreshes the day of week captions.
+   */
+  private refreshDayOfWeekCaptions(): void {
+    const dayCaptions: string[] = [];
+
+    const dayOfWeekFormatter = this.dayOfWeekCaptionFormatter ?
+      this.dayOfWeekCaptionFormatter :
+      this.defaultDayOfWeekCaptionFormatter;
+
+    for (let i = 0; i < DAY_NAMES.length; i++) {
+      dayCaptions.push(dayOfWeekFormatter(i));
+    }
+
+    this.daysOfWeekCaptions = dayCaptions;
+  }
+
+  /**
+   * Refreshes the calendar view.
+   * @param date Date.
+   */
+  private refreshView(date: Date): void {
+    this.view = new MonthView(date).createView(false, this.firstDayOfWeek);
   }
 
   /**
@@ -224,7 +283,7 @@ export class MonthCalendarComponent implements ControlValueAccessor {
     if (this.dayFormatter) {
       return this.dayFormatter(day);
     } else {
-      return day ? day.day.toString() : '';
+      return this.defaultDayFormatter(day);
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DayOfWeek } from 'simple-calendar/public_api';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,9 @@ export class AppComponent {
 
   date = new Date();
 
-  monthCaptionFormatter(date: Date): string {
-    return date.toLocaleDateString();
-  }
+  monthFormatter = (date: Date) => date.toLocaleDateString();
 
-  dayOfWeekCaptionFormatter(dayOfWeek: number): string {
-    return Math.random().toString().substr(2, 2);
-  }
+  dayOfWeekFormatter = (dayOfWeek: DayOfWeek) => Math.random().toString().substr(2, 2);
 
   customDayClass(date: Date): string {
     const classes = {
@@ -29,5 +26,10 @@ export class AppComponent {
 
   createNewMonth(): void {
     this.date = new Date(2014, 1, 1);
+  }
+
+  createNewFormatters(): void {
+    this.monthFormatter = (date: Date) => 'Blah';
+    this.dayOfWeekFormatter = (dayOfWeek: DayOfWeek) => 'XX';
   }
 }

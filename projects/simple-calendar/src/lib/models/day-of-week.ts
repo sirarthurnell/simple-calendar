@@ -9,4 +9,4 @@ export enum DayOfWeek {
   Thursday = 4,
   Friday = 5,
   Saturday = 6
-};
+}

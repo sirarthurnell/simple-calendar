@@ -1,12 +1,12 @@
-import { DAY_NAMES } from "../day-names";
-import { DayOfWeek } from "../day-of-week";
+import { DAY_NAMES } from '../day-names';
+import { DayOfWeek } from '../day-of-week';
 
 /**
  * Default formatter for the captions of the days
  * of the week.
  * @param dayOfWeek Day of the week.
  */
-export function defaultDayOfWeekCaptionFormatterFactory(firstDayOfWeek: DayOfWeek): (dayOfWeek: number) => string {
+export function defaultDayOfWeekCaptionFormatterFactory(firstDayOfWeek: DayOfWeek): (dayOfWeek: DayOfWeek) => string {
   return (dayOfWeek: DayOfWeek) => {
     const formattedDayNames = DAY_NAMES.map(
       dayName => formatDayName(dayName)

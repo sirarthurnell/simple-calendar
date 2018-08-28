@@ -1,11 +1,20 @@
+<h1>Examples</h1>
+
 <form>
 
+  <h3>Minimum</h3>
+  <div class="wrapper">
+    <sc-month-calendar></sc-month-calendar>
+  </div>
+
+  <h3>Simple</h3>
   <div class="wrapper">
 
     <sc-month-calendar class="full-height"
                        [(ngModel)]="date"
                        [customDayClass]="customDayClass"
-                       [monthCaptionFormatter]="monthCaptionFormatter"
+                       [dayOfWeekCaptionFormatter]="dayOfWeekFormatter"
+                       [monthCaptionFormatter]="monthFormatter"
                        name="hey">
 
       <!-- <ng-template appDayTemplate let-day>
@@ -18,5 +27,9 @@
 
 </form>
 
-
-<button (click)="createNewMonth()">Create month</button> {{ date }}
+<div>
+  <button (click)="createNewMonth()">Create month</button> {{ date }}
+</div>
+<div>
+  <button (click)="createNewFormatters()">Create new formatters</button>
+</div>
