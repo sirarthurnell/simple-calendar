@@ -1,0 +1,14 @@
+<h1>Formatters</h1>
+
+<h3>Original</h3>
+<div class="wrapper">
+  <sc-month-calendar></sc-month-calendar>
+</div>
+
+<h3>Formatted</h3>
+<div class="wrapper">
+  <sc-month-calendar [dayFormatter]="dayFormatter"
+                     [dayOfWeekCaptionFormatter]="dayOfWeekFormatter"
+                     [monthCaptionFormatter]="monthFormatter">
+  </sc-month-calendar>
+</div>

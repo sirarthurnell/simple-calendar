@@ -39,12 +39,13 @@ export class MonthView {
 
         for (let i = 0; i < daysToPickFromLastMonth; i++) {
           const currentDayOfMonth = lastDayOfLastMonth - (daysToPickFromLastMonth - (i + 1));
+          const currentDate = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), currentDayOfMonth);
 
           currentMonthGrid[0][i] = {
             isToday: false,
             isSelected: false,
-            isHole: true,
-            day: currentDayOfMonth
+            day: currentDayOfMonth,
+            date: currentDate
           };
         }
       }
@@ -53,11 +54,14 @@ export class MonthView {
       for (let week = 0; week < this.WEEKS_PER_MONTH; week++) {
         for (let dayOfWeek = 0; dayOfWeek < this.DAYS_PER_WEEK; dayOfWeek++) {
           if (!!!currentMonthGrid[week][dayOfWeek]) {
+
+            const fillingDates = new Date(this.date.getFullYear(), this.date.getMonth(), fillingDays++);
+
             currentMonthGrid[week][dayOfWeek] = {
               isToday: false,
               isSelected: false,
-              isHole: true,
-              day: fillingDays++
+              day: fillingDays,
+              date: fillingDates
             };
           }
         }
@@ -89,12 +93,13 @@ export class MonthView {
         const todaySameYear = today.getFullYear() === this.date.getFullYear();
         const todaySameMonth = today.getMonth() === this.date.getMonth();
         const todaySameDay = today.getDate() === currentDayOfMonth;
+        const currentDate = new Date(this.date.getFullYear(), this.date.getMonth(), currentDayOfMonth);
 
         grid[week][dayOfWeek] = {
           isToday: todaySameYear && todaySameMonth && todaySameDay,
           isSelected: this.date.getDate() === currentDayOfMonth,
-          isHole: false,
-          day: currentDayOfMonth
+          day: currentDayOfMonth,
+          date: currentDate
         };
 
         currentDayOfMonth++;

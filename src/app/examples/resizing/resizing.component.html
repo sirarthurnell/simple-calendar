@@ -1,0 +1,19 @@
+<h1>Resizing</h1>
+<p>These are the three different configurable growing modes that the calendar supports. The blue border corresponds to the wrapper the calendar is placed in.</p>
+
+<h4>Grow modes</h4>
+<ul>
+  <li>
+    <button (click)="setStretch()">Stretch (default)</button>
+  </li>
+  <li>
+    <button (click)="setProportional()">Proportional</button>
+  </li>
+  <li>
+    <button (click)="setMixed()">Mixed</button>
+  </li>
+</ul>
+
+<div class="wrapper">
+  <sc-month-calendar [grow]="growMode"></sc-month-calendar>
+</div>

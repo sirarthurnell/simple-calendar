@@ -1,0 +1,24 @@
+<h1>NgModel usage</h1>
+
+<form>
+
+  <div class="wrapper">
+    <sc-month-calendar [(ngModel)]="date"
+                       name="showDate"></sc-month-calendar>
+  </div>
+
+  <div class="mt-1">
+    <label for="newDate">Enter a new date and press "Set date"</label>
+    <input [(ngModel)]="newDate"
+           name="newDate"
+           type="text">
+    <button (click)="showDate()"
+            type="button">Set date</button>
+  </div>
+
+
+</form>
+
+<p class="error">{{ message }}</p>
+
+<p>Current date: {{ date }}</p>

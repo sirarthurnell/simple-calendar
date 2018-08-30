@@ -7,13 +7,17 @@
 .sc-month {
   font-size: $day-font-size;
 
+  &--disabled {
+    opacity: 0.25;
+  }
+
   &__week-caption,
   &__caption {
     border: $day-border-size solid black;
     font-weight: bold;
   }
 
-  &__day {    
+  &__day {
     border: $day-border-size solid black;
 
     &--default {

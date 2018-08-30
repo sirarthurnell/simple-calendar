@@ -1,0 +1,75 @@
+/*
+  Redefining styles
+*/
+.sc-month {
+  font-family: sans-serif;
+
+  &__week-caption,
+  &__caption {
+    border: 1px solid grey;
+  }
+
+  &__day {
+    border: 1px solid lightgray;
+    padding: 5px;
+
+    &--default {
+      text-align: right;
+    }
+
+    &--today {
+      background: orangered;
+    }
+
+    &--selected {
+      background: green;
+    }
+  }
+}
+
+/*
+  Creating custom styles
+*/
+.custom-month {
+  font-family: Arial, Helvetica, sans-serif;
+  border: none;
+
+  &__week-caption,
+  &__caption {
+    border: none;
+  }
+
+  &__day {
+    border: none;
+    padding: 5px;
+
+    &--default {
+      text-align: right;
+    }
+
+    &--today {
+      background: silver;
+    }
+
+    &--selected {
+      background: slategrey;
+      color: white;
+    }
+  }
+}
+
+/*
+  Specific days.
+*/
+.first-day {
+  background: yellow;
+}
+
+.important-appointment {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+.sundays {
+  color: red;
+}

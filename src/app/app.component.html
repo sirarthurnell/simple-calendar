@@ -1,35 +1,23 @@
 <h1>Examples</h1>
 
-<form>
+<ul>
+  <li>
+    <a routerLink="/resizing">Resizing</a>
+  </li>
+  <li>
+    <a routerLink="/formatters">Formatters</a>
+  </li>
+  <li>
+    <a routerLink="/styling">Styling</a>
+  </li>
+  <li>
+    <a routerLink="/ngModelUsage">ngModel usage</a>
+  </li>
+  <li>
+    <a routerLink="/disabled">Disabled state</a>
+  </li>
+</ul>
 
-  <h3>Minimum</h3>
-  <div class="wrapper">
-    <sc-month-calendar></sc-month-calendar>
-  </div>
+<hr>
 
-  <h3>Simple</h3>
-  <div class="wrapper">
-
-    <sc-month-calendar class="full-height"
-                       [(ngModel)]="date"
-                       [customDayClass]="customDayClass"
-                       [dayOfWeekCaptionFormatter]="dayOfWeekFormatter"
-                       [monthCaptionFormatter]="monthFormatter"
-                       name="hey">
-
-      <!-- <ng-template appDayTemplate let-day>
-      {{ day?.day }}
-    </ng-template> -->
-
-    </sc-month-calendar>
-
-  </div>
-
-</form>
-
-<div>
-  <button (click)="createNewMonth()">Create month</button> {{ date }}
-</div>
-<div>
-  <button (click)="createNewFormatters()">Create new formatters</button>
-</div>
+<router-outlet></router-outlet>

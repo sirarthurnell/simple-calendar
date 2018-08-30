@@ -1,0 +1,12 @@
+<h1>Disabled state</h1>
+
+<h3>{{ disabled ? 'Disabled' : 'Enabled' }}</h3>
+<div class="wrapper">
+  <sc-month-calendar [disabled]="disabled"></sc-month-calendar>
+</div>
+
+<div class="mt-1">
+  <label>
+    <input (change)="toggleDisabled()"
+           type="checkbox">Toggle disabled state</label>
+</div>

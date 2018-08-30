@@ -1,8 +1,6 @@
 <!-- Month -->
 <div (click)="onMonthClick()"
-     [className]="monthClass"
-     [class.column]="true"
-     [class.stretch-vertically]="grow.mode == 'stretch'">
+     [ngClass]="['column', grow.mode == 'stretch' ? 'stretch-vertically' : '', getClassForMonth()]">
 
   <!-- Month caption -->
   <div class="row">
@@ -73,8 +71,7 @@
              let-day>
   <div class="flex-expanded-container">
     <div [class]="getClassForDay(day)"
-         [class.flex-expand]="true"
-         [class.sc-month__day]="true">{{ getFormattedDay(day) }}</div>
+         [class.flex-expand]="true">{{ getFormattedDay(day) }}</div>
   </div>
 </ng-template>
 
@@ -83,9 +80,7 @@
              let-dayOfWeek
              let-dayOfWeekIndex="dayOfWeekIndex">
   <div [class.flex-expanded-container]="grow.mode != 'mixed'">
-    <div [className]="dayOfWeekCaptionClass"
-         [class.flex-expand]="true"
-         [class.flex-centered]="true">
+    <div [ngClass]="['flex-expand', 'flex-centered', dayOfWeekCaptionClass]">
       {{ dayOfWeek }}
     </div>
   </div>
@@ -95,9 +90,7 @@
 <ng-template #defaultMonthTemplate
              let-date>
   <div [class.flex-expanded-container]="grow.mode != 'mixed'">
-    <div [className]="monthCaptionClass"
-         [class.flex-expand]="true"
-         [class.flex-centered]="true">
+    <div [ngClass]="['flex-expand', 'flex-centered', monthCaptionClass]">
       {{ monthCaption }}
     </div>
   </div>

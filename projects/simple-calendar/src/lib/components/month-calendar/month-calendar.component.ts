@@ -48,9 +48,6 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
    * disabled state.
    */
   @Input() disabled = false;
-  @HostBinding('style.opacity') get opacity() {
-    return this.disabled ? 0.25 : 1;
-  }
 
   /**
    * Date to show.
@@ -68,7 +65,19 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   /**
    * Specifies how a day cell should grow.
    */
-  @Input() grow: GrowMode = { mode: 'stretch' };
+  private _grow: GrowMode = { mode: 'stretch' };
+
+  @Input() set grow (mode: GrowMode) {
+    if (mode) {
+      this._grow = mode;
+    } else {
+      this._grow = { mode: 'stretch' };
+    }
+  }
+
+  get grow(): GrowMode {
+    return this._grow;
+  }
 
   /**
    * First day of the week.
@@ -78,14 +87,14 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   /**
    * Formatter for days.
    */
-  private _dayFormatter: (day: DayInfo) => string;
+  private _dayFormatter: (day?: DayInfo) => string;
 
-  @Input() set dayFormatter (formatter: (day: DayInfo) => string) {
+  @Input() set dayFormatter (formatter: (day?: DayInfo) => string) {
     this._dayFormatter = formatter;
     this.refresh();
   }
 
-  get dayFormatter(): (day: DayInfo) => string {
+  get dayFormatter(): (day?: DayInfo) => string {
     return this._dayFormatter;
   }
 
@@ -139,6 +148,11 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   @Input() monthClass = 'sc-month';
 
   /**
+   * CSS class for the disabled state.
+   */
+  @Input() disabledClass = 'sc-month--disabled';
+
+  /**
    * CSS class for the month caption.
    */
   @Input() monthCaptionClass = 'sc-month__caption';
@@ -149,9 +163,14 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   @Input() dayOfWeekCaptionClass = 'sc-month__week-caption';
 
   /**
+   * CSS class for the day captions.
+   */
+  @Input() dayCaptionClass = 'sc-month__day';
+
+  /**
    * CSS class for day.
    */
-  @Input() dayClass = 'sc-month__day--default';
+  @Input() defaultDayClass = 'sc-month__day--default';
 
   /**
    * CSS class for the current day.
@@ -170,7 +189,7 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
 
   private defaultDayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.firstDayOfWeek);
   private defaultMonthCaptionFormatter = (date: Date) => date.toDateString();
-  private defaultDayFormatter = (day: DayInfo) => day ? day.day.toString() : '';
+  private defaultDayFormatter = (day?: DayInfo) => day ? day.day.toString() : '';
   private onChange = (date: Date) => { };
   private onTouched = () => { };
 
@@ -248,29 +267,41 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   }
 
   /**
+   * Gets the CSS classes to apply to the month.
+   */
+  getClassForMonth(): string {
+    let classesToApply = this.monthClass;
+
+    if (this.disabled) {
+      classesToApply = this.monthClass + ' ' + this.disabledClass;
+    }
+
+    return classesToApply;
+  }
+
+  /**
    * Gets the CSS class applicable to
    * the specified day.
    * @param day Day.
    */
-  getClassForDay(day: DayInfo): string {
+  getClassForDay(day?: DayInfo): string {
+    let dayClassToApply = this.defaultDayClass;
+
     if (day) {
+
       if (day.day === this.value.getDate()) {
-        return this.selectedDayClass;
-      }
-
-      if (day.isToday) {
-        return this.currentDayClass;
-      }
-
-      if (this.customDayClass) {
+        dayClassToApply = this.selectedDayClass;
+      } else if (day.isToday) {
+        dayClassToApply = this.currentDayClass;
+      } else if (this.customDayClass) {
         const date = new Date(this.value.valueOf());
         date.setDate(day.day);
-        return this.customDayClass(date) || this.dayClass;
+        dayClassToApply = this.customDayClass(date) || this.defaultDayClass;
       }
 
-      return this.dayClass;
+      return this.dayCaptionClass + ' ' + dayClassToApply;
     } else {
-      return '';
+      return this.dayCaptionClass;
     }
   }
 
