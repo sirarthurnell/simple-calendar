@@ -1,33 +1,4 @@
 /*
-  Redefining styles
-*/
-.sc-month {
-  font-family: sans-serif;
-
-  &__week-caption,
-  &__caption {
-    border: 1px solid grey;
-  }
-
-  &__day {
-    border: 1px solid lightgray;
-    padding: 5px;
-
-    &--default {
-      text-align: right;
-    }
-
-    &--today {
-      background: orangered;
-    }
-
-    &--selected {
-      background: green;
-    }
-  }
-}
-
-/*
   Creating custom styles
 */
 .custom-month {
