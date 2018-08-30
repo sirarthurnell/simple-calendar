@@ -70,8 +70,7 @@
 <ng-template #defaultDayTemplate
              let-day>
   <div class="flex-expanded-container">
-    <div [class]="getClassForDay(day)"
-         [class.flex-expand]="true">{{ getFormattedDay(day) }}</div>
+    <div [ngClass]="[getClassForDay(day), 'flex-expand']">{{ getFormattedDay(day) }}</div>
   </div>
 </ng-template>
 

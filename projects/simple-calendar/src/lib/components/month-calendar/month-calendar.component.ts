@@ -178,6 +178,11 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   @Input() currentDayClass = 'sc-month__day--today';
 
   /**
+   * CSS class for the day when the state is disabled.
+   */
+  @Input() disabledDayClass = 'sc-month__day--disabled';
+
+  /**
    * CSS class for the selected day.
    */
   @Input() selectedDayClass = 'sc-month__day--selected';
@@ -297,6 +302,10 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
         const date = new Date(this.value.valueOf());
         date.setDate(day.day);
         dayClassToApply = this.customDayClass(date) || this.defaultDayClass;
+      }
+
+      if (this.disabled) {
+        dayClassToApply = dayClassToApply + ' ' + this.disabledDayClass;
       }
 
       return this.dayCaptionClass + ' ' + dayClassToApply;
