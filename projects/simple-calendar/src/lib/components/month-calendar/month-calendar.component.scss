@@ -19,6 +19,7 @@
 
   &__day {
     border: $day-border-size solid black;
+    cursor: pointer;
 
     &--default {
       text-align: initial;

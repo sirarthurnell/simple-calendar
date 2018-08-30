@@ -1,0 +1,29 @@
+<h1>Custom templates</h1>
+<p>Custom templates give you total freedom in order to define all the cells of the calendar.</p>
+
+<h3>Usage</h3>
+<div class="wrapper">
+  <sc-month-calendar>
+
+    <!-- Day caption template -->
+    <ng-template scDayTemplate
+                 let-day>
+      <div class="month__day"
+           [class.month__day--selected]="day?.isSelected">{{ day?.day }}</div>
+    </ng-template>
+
+    <!-- Day of week caption template -->
+    <ng-template scDayOfWeekCaptionTemplate
+                 let-dayOfWeek
+                 let-dayOfWeekIndex="dayOfWeekIndex">
+      <div class="month__day-of-week-caption">{{ dayOfWeek }}</div>
+    </ng-template>
+
+    <!-- Month caption template -->
+    <ng-template scMonthCaptionTemplate
+                 let-date>
+      <div class="month__caption">{{ date.toLocaleDateString() }}</div>
+    </ng-template>
+
+  </sc-month-calendar>
+</div>

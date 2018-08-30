@@ -1,0 +1,42 @@
+$highlight-color: #fdc152;
+;
+
+.wrapper {
+  width: 100%;
+  height: 400px;
+}
+
+.month {
+  &__caption,
+  &__day-of-week-caption,
+  &__day {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-weight: bold;
+    padding: 5px;
+    color: rgb(242, 246, 250);
+  }
+
+  &__day-of-week-caption {
+    background: rgb(82, 94, 105);
+    color: rgb(133, 152, 172);
+  }
+
+  &__caption {
+    background: rgb(82, 94, 105);
+    color: $highlight-color;
+  }
+
+  &__day {
+    background: rgb(133, 152, 172);
+    font-weight: normal;
+    cursor: pointer;
+
+    &--selected {
+      background: $highlight-color;
+      color: black;
+    }
+  }
+}
