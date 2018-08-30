@@ -21,10 +21,6 @@
     border: $day-border-size solid black;
     cursor: pointer;
 
-    &--default {
-      text-align: initial;
-    }
-
     &--disabled {
       cursor: auto;
     }

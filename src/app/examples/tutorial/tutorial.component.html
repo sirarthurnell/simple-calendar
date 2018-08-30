@@ -1,0 +1,20 @@
+<h1>Japanese calendar</h1>
+<p>Here's the tutorial about the creation of a Japanese calendar.</p>
+
+<div class="wrapper">
+
+  <sc-month-calendar [grow]="{ mode: 'proportional' }"
+                     [(ngModel)]="date"
+                     [monthClass]="'month'"
+                     [monthCaptionClass]="'month-caption'"
+                     [dayOfWeekCaptionClass]="'day-of-week-caption'"
+                     [dayCaptionClass]="'day-caption'"
+                     [selectedDayClass]="'day-caption--selected'"
+                     [currentDayClass]="'day-caption--today'"
+                     [firstDayOfWeek]="firstDayOfWeek"
+                     [dayOfWeekCaptionFormatter]="dayOfWeekCaptionFormatter"
+                     [monthCaptionFormatter]="monthCaptionFormatter"></sc-month-calendar>
+
+</div>
+
+<p>Selected date: {{ date.toLocaleDateString() }}</p>

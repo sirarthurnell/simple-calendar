@@ -79,10 +79,24 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
     return this._grow;
   }
 
+  private defaultFirstDayOfWeek = DayOfWeek.Sunday;
+
+  private defaultDayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.defaultFirstDayOfWeek);
+
   /**
    * First day of the week.
    */
-  @Input() firstDayOfWeek = DayOfWeek.Sunday;
+  private _firstDayOfWeek: DayOfWeek = this.defaultFirstDayOfWeek;
+
+  @Input() set firstDayOfWeek (dayOfWeek: DayOfWeek) {
+    this._firstDayOfWeek = dayOfWeek;
+    this.defaultDayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this._firstDayOfWeek);
+    this.refresh();
+  }
+
+  get firstDayOfWeek(): DayOfWeek {
+    return this._firstDayOfWeek;
+  }
 
   /**
    * Formatter for days.
@@ -168,11 +182,6 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
   @Input() dayCaptionClass = 'sc-month__day';
 
   /**
-   * CSS class for day.
-   */
-  @Input() defaultDayClass = 'sc-month__day--default';
-
-  /**
    * CSS class for the current day.
    */
   @Input() currentDayClass = 'sc-month__day--today';
@@ -192,7 +201,6 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
    */
   view;
 
-  private defaultDayOfWeekCaptionFormatter = defaultDayOfWeekCaptionFormatterFactory(this.firstDayOfWeek);
   private defaultMonthCaptionFormatter = (date: Date) => date.toDateString();
   private defaultDayFormatter = (day?: DayInfo) => day ? day.day.toString() : '';
   private onChange = (date: Date) => { };
@@ -290,7 +298,7 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
    * @param day Day.
    */
   getClassForDay(day?: DayInfo): string {
-    let dayClassToApply = this.defaultDayClass;
+    let dayClassToApply = '';
 
     if (day) {
 
@@ -301,7 +309,7 @@ export class MonthCalendarComponent implements ControlValueAccessor, OnInit {
       } else if (this.customDayClass) {
         const date = new Date(this.value.valueOf());
         date.setDate(day.day);
-        dayClassToApply = this.customDayClass(date) || this.defaultDayClass;
+        dayClassToApply = this.customDayClass(date);
       }
 
       if (this.disabled) {

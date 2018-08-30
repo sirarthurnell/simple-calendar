@@ -12,6 +12,7 @@ import { FormattersComponent } from './examples/formatters/formatters.component'
 import { NgModelUsageComponent } from './examples/ng-model-usage/ng-model-usage.component';
 import { DisabledStateComponent } from './examples/disabled-state/disabled-state.component';
 import { CustomTemplatesComponent } from './examples/custom-templates/custom-templates.component';
+import { TutorialComponent } from './examples/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CustomTemplatesComponent } from './examples/custom-templates/custom-tem
     FormattersComponent,
     NgModelUsageComponent,
     DisabledStateComponent,
-    CustomTemplatesComponent
+    CustomTemplatesComponent,
+    TutorialComponent
   ],
   imports: [
     BrowserModule,
