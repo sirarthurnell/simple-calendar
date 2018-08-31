@@ -16,7 +16,7 @@ But after customized, it can produce results like this one:
 
 ![Japanese finished](./img/japanese.png)
 
-The next sections explain the different concepts around the calendar.
+The next sections explain the different concepts about the calendar.
 
 ## Wrapper
 The wrapper is an element the calendar needs in order to limit its size. The calendar, in any of its three configurations, tends to ocuppy the maximum area of the container that holds it. If no wrapper is provided, the calendar will expand until ocuppy the entire area.
