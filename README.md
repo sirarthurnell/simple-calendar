@@ -108,6 +108,8 @@ And in the HTML code:
 ```
 Here, `DayOfWeek` is an enum provided by the calendar.
 
+It's important to mention the existence of the **`firstDayOfWeek`** property, when it comes to set the first day of the week. It expects a value of type `DayOfWeek` in which, Sunday has the numerical value of 0 (and it's the default value of the property).
+
 ### Day caption formatter
 This formatter is in charge of formatting all the day captions. It can be used in this way:
 
@@ -261,4 +263,51 @@ The outcome would be like this one:
 
 ![Custom styles for concrete days](./img/custom-styles-concrete-days.png)
 
-For more examples and more advanced topics, there's a section with examples included with the source code. Please, give it a look.
+## NgModel usage
+The calendar supports the use of **ngModel** through the property `value`. Simply define a property of type `Date` and connect it with the "banana in a box" notation, something like this:
+
+```typescript
+date = new Date();
+```
+
+And in the definition of the calendar:
+
+```html
+<sc-month-calendar [(ngModel)]="date"
+                   name="showDate">
+</sc-month-calendar>
+```
+
+## Custom templates
+This is a more advanced topic. The calendar supports custom templates in order to let the user change the markup of three different regions: month caption, day of week captions and day captions. Therefore, there are three different custom templates that can be defined through directives. Let's see them in action. The way of defining them is as follows:
+
+```html
+<sc-month-calendar>
+
+  <!-- Day caption template -->
+  <ng-template scDayTemplate
+                let-day>
+    <div class="month__day"
+          [class.month__day--selected]="day?.isSelected">{{ day?.day }}</div>
+  </ng-template>
+
+  <!-- Day of week caption template -->
+  <ng-template scDayOfWeekCaptionTemplate
+                let-dayOfWeek
+                let-dayOfWeekIndex="dayOfWeekIndex">
+    <div class="month__day-of-week-caption">{{ dayOfWeek }}</div>
+  </ng-template>
+
+  <!-- Month caption template -->
+  <ng-template scMonthCaptionTemplate
+                let-date>
+    <div class="month__caption">{{ date.toLocaleDateString() }}</div>
+  </ng-template>
+
+</sc-month-calendar>
+```
+Each of them is defined using its corresponding directive. Notice that they define some template variables too that come handy when it comes to adapt the content to the selected day. The styles, when custom templates are used, can be defined in the stylesheet associated with the component that uses the calendar, so no separate stylesheet is necessary.
+
+---
+
+If you want a more complete demonstration of the capabilities of the calendar, there's a section with examples included with the source code. Just execute **ng serve**, and give it a look.

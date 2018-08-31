@@ -25,10 +25,10 @@
 }
 
 .day-caption--selected {
-  background: radial-gradient(circle at 50% 46%, red 0%,red 50%, transparent 55%);
+  background: radial-gradient(circle at center, red 0%,red 50%, transparent 55%);
   color: white;
 }
 
 .day-caption--today {
-  background: radial-gradient(circle at 50% 46%, transparent 50%, red 52.5%, transparent 55%);
+  background: radial-gradient(circle at center, transparent 50%, red 52.5%, transparent 55%);
 }
