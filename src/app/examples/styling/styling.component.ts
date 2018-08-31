@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DayInfo } from 'projects/simple-calendar/src/public_api';
 
 @Component({
   selector: 'app-styling',
@@ -44,17 +45,17 @@ export class StylingComponent {
 
   /**
    * Defines CSS classes for specific days.
-   * @param date Date.
+   * @param day Day.
    */
-  customDayClass(date: Date): string {
+  customDayClass(day: DayInfo): string {
     const classes = {
       1: 'first-day',
       15: 'important-appointment'
     };
 
-    let classesToApply = classes[date.getDate()];
+    let classesToApply = classes[day.date.getDate()];
 
-    if (date.getDay() === 0) {
+    if (day.date.getDay() === 0) {
       classesToApply += ' ' + 'sundays';
     }
 

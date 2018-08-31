@@ -15,7 +15,7 @@ export class ResizingComponent {
   /**
    * Grow mode.
    */
-  growMode: GrowMode;
+  growMode: GrowMode = { mode: 'stretch' };
 
   /**
    * Sets the proportional grow mode.

@@ -2,6 +2,13 @@
 <p>Here's the tutorial about the creation of a Japanese calendar.</p>
 
 <div class="wrapper">
+  <sc-month-calendar [grow]="{ mode: 'proportional' }">
+  </sc-month-calendar>
+</div>
+
+<br>
+
+<div class="wrapper">
 
   <sc-month-calendar [grow]="{ mode: 'proportional' }"
                      [(ngModel)]="date"
