@@ -1,4 +1,4 @@
-# SimpleCalendar
+# Simple Angular Calendar
 
 Angular component that represents a calendar, responsive, fast and easy to use. Here's the minimum code needed to instantiate it:
 
@@ -15,6 +15,15 @@ That code produces this result:
 But after customized, it can produce results like this one:
 
 ![Japanese finished](./img/japanese.png)
+
+You can install it with the following command:
+```
+npm i simple-angular-calendar
+```
+And importing it with:
+```typescript
+import { MonthCalendarModule } from 'simple-angular-calendar';
+```
 
 The next sections explain the different concepts about the calendar.
 

@@ -5,6 +5,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-lib": "ng build --prod simple-calendar",
+    "copy-files": "cp ./README.md ./dist/simple-calendar",
+    "package": "cd dist/simple-calendar && npm pack",
+    "distribute": "npm run build-lib && npm run copy-files && npm run package",
     "lint": "ng lint"
   },
   "private": true,

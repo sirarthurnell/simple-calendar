@@ -1,6 +1,23 @@
 {
-  "name": "simple-calendar",
-  "version": "0.0.1",
+  "name": "simple-angular-calendar",
+  "version": "1.0.0",
+  "description": "Responsive calendar totally configurable and easy to use.",
+  "keywords": [
+    "calendar",
+    "angular",
+    "responsive",
+    "easy"
+  ],
+  "homepage": "https://github.com/sirarthurnell/simple-calendar",
+  "license": "MIT",
+  "author": {
+    "name": "Arturo Medina Jimenez"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sirarthurnell/simple-calendar.git"
+  },
+
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
