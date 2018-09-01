@@ -12,7 +12,7 @@ That code produces this result:
 
 ![Default creation](./img/default-creation.png)
 
-But after customized, it can produce results like this one:
+But after being customized, it can produce results like this one:
 
 ![Japanese finished](./img/japanese.png)
 
@@ -20,7 +20,7 @@ You can install it with the following command:
 ```
 npm i simple-angular-calendar
 ```
-And importing it with:
+And import it with:
 ```typescript
 import { MonthCalendarModule } from 'simple-angular-calendar';
 ```
