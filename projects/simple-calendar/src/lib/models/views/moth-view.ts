@@ -6,7 +6,7 @@ import { DayInfo } from '../day-info';
  * Creates a view of a month.
  */
 export class MonthView {
-    private readonly WEEKS_PER_MONTH = 5;
+    private readonly WEEKS_PER_MONTH = 6;
     private readonly DAYS_PER_WEEK = 7;
 
   /**
@@ -120,6 +120,7 @@ export class MonthView {
   private initGrid(): Array<Array<DayInfo>> {
     const defaultEmpty = undefined;
     const grid = [
+      new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),
       new Array(this.DAYS_PER_WEEK).fill(defaultEmpty),
